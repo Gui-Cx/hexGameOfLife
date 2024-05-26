@@ -83,10 +83,11 @@ void drawColourHex(std::set<std::pair<int, int>> whiteTiles, sf::RenderWindow& w
             hex.setPoint(5, sf::Vector2f(            0,   LINE_SIZE));
             hex.setPosition(col*COLUMN_SIZE, li*LINE_SIZE);
             hex.setOutlineThickness(1.f);
-            hex.setOutlineColor(sf::Color::White);
             
             std::pair<int, int> hexCoords{li/3, (3*col-li)/6};
             hex.setFillColor((whiteTiles.find(hexCoords) != whiteTiles.end()) ? sf::Color::White : sf::Color::Black);
+            hex.setOutlineColor((whiteTiles.find(hexCoords) != whiteTiles.end()) ? sf::Color::Black : sf::Color::White);
+            
             window.draw(hex);
             col+=2;
         }
@@ -139,6 +140,7 @@ void mainDraw(std::set<std::pair<int, int>> tiles)
         offsetTiles.insert(tile+offset);
     }
     sf::Clock clock;
+    
     while (window.isOpen())
     {
         sf::Event event;

@@ -3,7 +3,6 @@
 #include "hex.h"
 #include "visu.h"
 #include <iostream>
-// #include <
 
 int main(int argc, char** argv)
 {
@@ -17,11 +16,6 @@ int main(int argc, char** argv)
     std::vector<std::string> lines = readFile(filePath);
 
     std::set<std::pair<int, int>> aliveHexes = getAliveHexFromLines(lines);
-    // for (int i = 0; i <= 100; i++)
-    // {
-    //     std::cout << i <<" steps : "<< aliveHexes.size() <<" tiles alive right now" <<std::endl;
-    //     aliveHexes = getNextStep(aliveHexes);
-    // }
 
     draw(aliveHexes);
     return 0;
