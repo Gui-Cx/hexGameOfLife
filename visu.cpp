@@ -3,12 +3,15 @@
 #include <set>
 #include "hex.h"
 #include "visu.h"
+#include "game.h"
 
 const int LINE_SIZE = 5;
 const int COLUMN_SIZE = 10;
 
 const int WINDOW_HEIGHT = 900;
 const int WINDOW_WIDTH = 1500;
+
+const sf::Time  REFRESH_DELAY = sf::milliseconds(150);
 
 void drawGrid(sf::RenderWindow& window)
 {
@@ -135,7 +138,7 @@ void mainDraw(std::set<std::pair<int, int>> tiles)
     {
         offsetTiles.insert(tile+offset);
     }
-    
+    sf::Clock clock;
     while (window.isOpen())
     {
         sf::Event event;
@@ -148,12 +151,16 @@ void mainDraw(std::set<std::pair<int, int>> tiles)
                 return;
             }
         }
-        window.clear();
+        if (clock.getElapsedTime() > REFRESH_DELAY)
+        {
+            clock.restart();
+            window.clear();
 
-        // drawGrid(window);
-        drawColourHex(offsetTiles, window);
-        window.display();
-
+            // drawGrid(window);
+            drawColourHex(offsetTiles, window);
+            window.display();
+            offsetTiles = getNextStep(offsetTiles); 
+        }
     }
 }
 
